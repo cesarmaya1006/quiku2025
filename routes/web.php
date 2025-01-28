@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Config\MenuController;
 use App\Http\Controllers\Config\MenuRolController;
 use App\Http\Controllers\Config\PermisoController;
@@ -8,6 +9,12 @@ use App\Http\Controllers\Config\RolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extranet\ExtranetPageController;
 use App\Http\Controllers\Intranet\IntranetPageController;
+use App\Http\Controllers\Parametros\AreaController;
+use App\Http\Controllers\Parametros\CargoController;
+use App\Http\Controllers\Parametros\MunicipioController;
+use App\Http\Controllers\Parametros\NivelController;
+use App\Http\Controllers\Parametros\SedeController;
+use App\Http\Middleware\Administrador;
 use App\Http\Middleware\AdminSistema;
 
 Route::controller(ExtranetPageController::class)->group(function () {
@@ -85,6 +92,51 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
             Route::post('guardar_excepciones', 'store_excepciones')->name('permisos_rol.store_excepciones');
         });
         // ----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
+        // Ruta Administrador del Sistema Usuarios
+        Route::controller(UsuarioController::class)->prefix('usuarios')->group(function () {
+            Route::get('', 'index')->name('usuario.index');
+            Route::get('crear', 'create')->name('usuario.create');
+            Route::get('editar/{id}', 'edit')->name('usuario.edit');
+            Route::post('guardar', 'store')->name('usuario.store');
+            Route::put('actualizar/{id}', 'update')->name('usuario.update');
+            Route::delete('eliminar/{id}', 'destroy')->name('usuario.destroy');
+            Route::put('activar/{id}', 'activar')->name('usuario.activar');
+            // *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--* *--*
+        });
+        // ----------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------
+    });
+    Route::prefix('parametros')->middleware(Administrador::class)->group( function() {
+        // ----------------------------------------------------------------------------------------
+        // Ruta Municipios
+        Route::controller(MunicipioController::class)->prefix('municipios')->group(function(){
+            Route::get('getMunicipiosByDpto', 'getMunicipiosByDpto')->name('municipio.getMunicipiosByDpto');
+        });
+        // ----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
+        // Ruta Sedes
+        Route::controller(SedeController::class)->prefix('sedes')->group(function(){
+            Route::get('getSedesByMunicipios', 'getSedesByMunicipios')->name('sede.getSedesByMunicipios');
+        });
+        // ----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
+        // Ruta Sedes
+        Route::controller(AreaController::class)->prefix('areas')->group(function(){
+
+        });
+        // ----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
+        // Ruta Sedes
+        Route::controller(NivelController::class)->prefix('niveles')->group(function(){
+            Route::get('getNivelesByArea', 'getNivelesByArea')->name('nivel.getNivelesByArea');
+        });
+        // ----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
+        // Ruta Sedes
+        Route::controller(CargoController::class)->prefix('cargos')->group(function(){
+            Route::get('getCargosByNivel', 'getCargosByNivel')->name('cargo.getCargosByNivel');
+        });
+        // ----------------------------------------------------------------------------------------
     });
 });

@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Empleados\Empleado;
+use App\Models\Empresas\Representante;
+use App\Models\Personas\Persona;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,6 +71,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    //==================================================================================
+    //----------------------------------------------------------------------------------
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'id');
+    }
+    //----------------------------------------------------------------------------------
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'id');
+    }
+    //==================================================================================
+    public function representante()
+    {
+        return $this->belongsTo(Representante::class, 'id');
+    }
+    //==================================================================================
     //==================================================================================
     public function setSession()
     {

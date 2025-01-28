@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Http\Controllers\Controller;
+use App\Models\Empleados\Empleado;
+use App\Models\PQR\Estado;
+use App\Models\PQR\tipoPQR;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class IntranetPageController extends Controller
 {
@@ -12,7 +16,56 @@ class IntranetPageController extends Controller
      */
     public function dashboard()
     {
-        return view('intranet.dashboard.dashboard');
+        $roles = Role::get();
+        //------------------------------------------------------------
+        $tipoPQR = tipoPQR::get();
+        //------------------------------------------------------------
+        $estadospqr = Estado::get();
+        foreach ($estadospqr as $estado) {
+            switch ($estado->id) {
+                case '1':
+                    $estado['bg'] = 'bg-info';
+                    break;
+                case '2':
+                    $estado['bg'] = 'bg-primary';
+                    break;
+                case '3':
+                    $estado['bg'] = 'bg-warning';
+                    break;
+                case '4':
+                    $estado['bg'] = 'bg-danger';
+                    break;
+                case '5':
+                    $estado['bg'] = 'bg-secondary';
+                    break;
+                case '6':
+                    $estado['bg'] = 'bg-success';
+                    break;
+                case '7':
+                    $estado['bg'] = 'bg-info';
+                    break;
+                case '8':
+                    $estado['bg'] = 'bg-primary';
+                    break;
+                case '9':
+                    $estado['bg'] = 'bg-success';
+                    break;
+                default:
+                    $estado['bg'] = 'bg-success';
+                    break;
+            }
+        }
+        //------------------------------------------------------------
+        $empleados_find = Empleado::get();
+        foreach ($empleados_find as $empleado) {
+            $empleado['cantidad'] = $empleado->pqrs->whereNotIn('estadospqr_id',[6, 9, 10])->count();
+        }
+        $empleados = $empleados_find->sortBy('cantidad')->reverse()->take(10);
+        foreach ($empleados as $empleado) {
+            $dataPoints[] = ['y'=>$empleado->cantidad,'label'=> $empleado->nombre1 . ' ' . $empleado->apellido1];
+        }
+        //-------------------------------------------------------------
+        return view('intranet.dashboard.dashboard',compact('roles','estadospqr','dataPoints','tipoPQR'));
     }
 
     /**
