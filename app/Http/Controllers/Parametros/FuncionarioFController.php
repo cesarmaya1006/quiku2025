@@ -1,0 +1,192 @@
+<?php
+
+namespace App\Http\Controllers\Intranet\Empresas;
+
+use Illuminate\Http\Request;
+use App\Models\Admin\Usuario;
+use App\Models\Empleados\Empleado;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
+use App\Http\Requests\Empresa\ValidacionEmpleados;
+use App\Models\Config\TipoDocumento;
+use App\Models\Parametros\Area;
+use App\Models\Parametros\Cargo;
+use App\Models\Parametros\Departamento;
+use App\Models\Parametros\Nivel;
+
+class FuncionarioFController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $empleados = Empleado::get();
+        return view('intranet.parametros.funcionarios.index', compact('empleados'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function crear()
+    {
+        $departamentos = Departamento::with('municipios')->whereHas('municipios', function ($q) {
+            $q->withCount('sedes')->having('sedes_count', '>', 0);
+        })->get();
+        $areas = Area::with('niveles')->whereHas('niveles', function ($q) {
+            $q->withCount('cargos')->having('cargos_count', '>', 0);
+        })->get();
+        $tipos_doc = TipoDocumento::get();
+        return view('intranet.parametros.funcionarios.crear', compact('tipos_doc', 'departamentos', 'areas'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function guardar(ValidacionEmpleados $request)
+    {
+        $usuario_new['usuario'] = $request['usuario'];
+        $usuario_new['password'] = bcrypt(utf8_encode($request['password']));
+        $usuario = Usuario::create($usuario_new);
+        $roles['rol_id'] = 5;
+        $usuario->roles()->sync($roles);
+        //--------------------------------------------------
+        $empleado_new['id'] = $usuario->id;
+        $empleado_new['docutipos_id'] = $request['docutipos_id'];
+        $empleado_new['cargo_id'] = $request['cargo_id'];
+        $empleado_new['sede_id'] = $request['sede_id'];
+        $empleado_new['estado'] = 1;
+        $empleado_new['identificacion'] = $request['identificacion'];
+        $empleado_new['nombre1'] = $request['nombre1'];
+        $empleado_new['nombre2'] = $request['nombre2'];
+        $empleado_new['apellido1'] = $request['apellido1'];
+        $empleado_new['apellido2'] = $request['apellido2'];
+        $empleado_new['telefono_celu'] = $request['telefono_celu'];
+        $empleado_new['direccion'] = $request['direccion'];
+        $empleado_new['genero'] = $request['genero'];
+        $empleado_new['fecha_nacimiento'] = $request['fecha_nacimiento'];
+        $empleado_new['email'] = $request['email'];
+        if($request->hasFile("documento")){
+            $documentos = $request->allFiles();
+            $ruta = Config::get('constantes.folder_img_usuarios');
+            $ruta = trim($ruta);
+            $doc_subido = $documentos["documento"];
+            $tamaño = $doc_subido->getSize();
+            if ($tamaño > 0) {
+                $tamaño = $tamaño / 1000;
+            }
+            $nombre_doc = time() . '-' . utf8_encode(utf8_decode($doc_subido->getClientOriginalName()));
+            $empleado_new['extension'] = $doc_subido->getClientOriginalExtension();
+            $empleado_new['peso'] = $tamaño;
+            $empleado_new['url'] = $nombre_doc;
+            $doc_subido->move($ruta, $nombre_doc);
+        }
+        Empleado::create($empleado_new);
+        return redirect('admin/funcionario/funcionarios/index')->with('mensaje', 'Funcionario creado con exito');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editar($id)
+    {
+        $departamentos = Departamento::with('municipios')->whereHas('municipios', function ($q) {
+            $q->withCount('sedes')->having('sedes_count', '>', 0);
+        })->get();
+        $areas = Area::with('niveles')->whereHas('niveles', function ($q) {
+            $q->withCount('cargos')->having('cargos_count', '>', 0);
+        })->get();
+        $tipos_doc = TipoDocumento::get();
+        $empleado = Empleado::findOrFail($id);
+        return view('intranet.parametros.funcionarios.editar', compact('empleado', 'tipos_doc', 'departamentos', 'areas'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function actualizar(ValidacionEmpleados $request, $id)
+    {
+        $empleado_new['docutipos_id'] = $request['docutipos_id'];
+        $empleado_new['cargo_id'] = $request['cargo_id'];
+        $empleado_new['sede_id'] = $request['sede_id'];
+        $empleado_new['identificacion'] = $request['identificacion'];
+        $empleado_new['nombre1'] = $request['nombre1'];
+        $empleado_new['nombre2'] = $request['nombre2'];
+        $empleado_new['apellido1'] = $request['apellido1'];
+        $empleado_new['apellido2'] = $request['apellido2'];
+        $empleado_new['telefono_celu'] = $request['telefono_celu'];
+        $empleado_new['direccion'] = $request['direccion'];
+        $empleado_new['genero'] = $request['genero'];
+        $empleado_new['fecha_nacimiento'] = $request['fecha_nacimiento'];
+        $empleado_new['email'] = $request['email'];
+        if($request->hasFile("documento")){
+            $documentos = $request->allFiles();
+            $ruta = Config::get('constantes.folder_img_usuarios');
+            $ruta = trim($ruta);
+            $doc_subido = $documentos["documento"];
+            $tamaño = $doc_subido->getSize();
+            if ($tamaño > 0) {
+                $tamaño = $tamaño / 1000;
+            }
+            $nombre_doc = time() . '-' . utf8_encode(utf8_decode($doc_subido->getClientOriginalName()));
+            $empleado_new['extension'] = $doc_subido->getClientOriginalExtension();
+            $empleado_new['peso'] = $tamaño;
+            $empleado_new['url'] = $nombre_doc;
+            $doc_subido->move($ruta, $nombre_doc);
+        }
+        Empleado::findOrFail($id)->update($empleado_new);
+        return redirect('admin/funcionario/funcionarios/index')->with('mensaje', 'Funcionario actualizado con exito');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+    public function cargar_niveles(Request $request)
+    {
+        if ($request->ajax()) {
+            return Nivel::where('area_id', $request['id'])->withCount('cargos')->having('cargos_count', '>', 0)->get();
+        } else {
+            abort(404);
+        }
+    }
+    public function cargar_cargos(Request $request)
+    {
+        if ($request->ajax()) {
+            return Cargo::where('nivel_id', $request['id'])->get();
+        } else {
+            abort(404);
+        }
+    }
+}
