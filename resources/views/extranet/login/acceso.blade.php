@@ -3,7 +3,7 @@
 @section('css_pagina')
     <link rel="stylesheet" href="{{ asset('css/extranet/login.css') }}">
 @endsection
-@section('cuerpo_pagina')
+@section('cuerpoPagina')
     <div class="container index">
         <div class="container mt-3">
             <div class="row d-flex justify-content-center mt-3">

@@ -16,7 +16,7 @@
                                             <h3 class="card-title col-11 justify-content-center">
                                                 @if ($tipo->id < 4)
                                                     <a class="col-12"
-                                                        href="#">
+                                                        href="{{ route($tipo->url, ['id' => $tipo->id]) }}">
                                                         @switch($tipo->id)
                                                             @case(1)
                                                                 <span class="justify-content-center"
@@ -41,7 +41,7 @@
                                                         <p class="mt-3">{{ $tipo->tipo }}</p>
                                                     </a>
                                                 @else
-                                                    <a href="#" style="text-decoration: none;">
+                                                    <a href="{{ route($tipo->url) }}" style="text-decoration: none;">
                                                         @switch($tipo->id)
                                                             @case(5)
                                                                 <span class="justify-content-center"
@@ -101,11 +101,11 @@
                                             <div class="card-header">
                                                 <h3 class="card-title col-11">
                                                     @if ($tipo->id < 4)
-                                                        <a href="#">
+                                                        <a href="{{ route($tipo->url, ['id' => $tipo->id]) }}">
                                                             <p>{{ $tipo->tipo }}</p>
                                                         </a>
                                                     @else
-                                                        <a href="#"
+                                                        <a href="{{ route($tipo->url) }}#"
                                                             style="text-decoration: none;">
                                                             @switch($tipo->id)
                                                                 @case(4)
@@ -166,7 +166,7 @@
 </div>
 <!-- ************************************************************* -->
 <!-- script hoja -->
-@section('scripts_pagina')
+@section('script_pagina')
     <script src="{{ asset('js/intranet/generar_pqr/index.js') }}"></script>
 @endsection
 <!-- ************************************************************* -->

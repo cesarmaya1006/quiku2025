@@ -54,7 +54,7 @@
 @section('modales')
 @endsection
 
-@section('scripts_pagina')
+@section('script_pagina')
     <script src="{{ asset('js/intranet/configuracion/roles/index.js') }}"></script>
     @include('intranet.layout.script_datatable')
 @endsection

@@ -25,5 +25,5 @@
 @section('modales')
 @endsection
 
-@section('scripts_pagina')
+@section('script_pagina')
 @endsection

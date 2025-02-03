@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Usuarios;
+namespace App\Http\Controllers\Usuarios;
 
 use App\Models\PQR\PQR;
 use App\Models\PQR\Anexo;
 use App\Models\PQR\Hecho;
 use App\Mail\PQR_Radicada;
-use App\Models\Admin\Pais;
 use App\Models\PQR\Estado;
 use App\Models\PQR\tipoPQR;
 use App\Models\PQR\Peticion;
@@ -27,9 +26,12 @@ use App\Models\Productos\Referencia;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Fechas\FechasController;
+use App\Models\Config\TipoDocumento;
 use App\Models\Empleados\Empleado;
 use App\Models\Empresas\Empresa;
+use App\Models\Parametros\Pais;
 use App\Models\PQR\AsignacionParticular;
+use App\Models\User;
 
 class ClienteController extends Controller
 {
@@ -114,7 +116,7 @@ class ClienteController extends Controller
     }
     public function generarPQR($id)
     {
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         $tipo_pqr = tipoPQR::findOrFail($id);
         $departamentos = Departamento::get();
         $categorias = Categoria::get();
@@ -731,7 +733,7 @@ class ClienteController extends Controller
 
     public function actualizar_datos()
     {
-        $tipos_docu = Tipo_Docu::get();
+        $tipos_docu = TipoDocumento::get();
         $paises = Pais::get();
         $departamentos = Departamento::get();
         $usuario = Usuario::findorFail(session('id_usuario'));
@@ -751,7 +753,7 @@ class ClienteController extends Controller
 
     public function crear_usuario()
     {
-        $tipos_docu = Tipo_Docu::get();
+        $tipos_docu = TipoDocumento::get();
         $paises = Pais::get();
         $departamentos = Departamento::get();
         $usuario = Usuario::findOrFail(session('id_usuario'));

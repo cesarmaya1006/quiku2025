@@ -45,6 +45,6 @@
 @section('modales')
 @endsection
 
-@section('scripts_pagina')
+@section('script_pagina')
 <script src="{{ asset('js/intranet/configuracion/roles/crear.js') }}"></script>
 @endsection
