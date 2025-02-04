@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    @yield('cuerpo_pagina')
+    @yield('cuerpoPagina')
     <!-- Optional JavaScript; choose one of the two! -->
     <a href="{{ route('extranet.preguntas_frecuentes') }}">
         <img src="{{ asset('imagenes/sistema/preguntas_frecuentes.png') }}"

@@ -43,7 +43,7 @@ class ClienteController extends Controller
     public function index()
     {
 
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         $pqrs = PQR::where('persona_id', session('id_usuario'))->get();
         return view('intranet.usuarios.listado', compact('pqrs', 'usuario'));
     }
@@ -126,7 +126,7 @@ class ClienteController extends Controller
 
     public function generarPQR_guardar(ValidarPqr $request)
     {
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaPQR['persona_id'] = $usuario->id;
             $validarInsert = PQR::where('persona_id', $usuario->id)->get();
@@ -261,7 +261,7 @@ class ClienteController extends Controller
         $diasLimite = $tipo_pqr['tiempos'];
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaConcepto['persona_id'] = $usuario->id;
         } else {
@@ -351,7 +351,7 @@ class ClienteController extends Controller
         $diasLimite = $tipo_pqr['tiempos'];
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaFelicitacion['persona_id'] = $usuario->id;
         } else {
@@ -408,7 +408,7 @@ class ClienteController extends Controller
         $diasLimite = $tipo_pqr['tiempos'];
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaDenuncia['persona_id'] = $usuario->id;
         } else {
@@ -498,7 +498,7 @@ class ClienteController extends Controller
         $diasLimite = $tipo_pqr['tiempos'];
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaSolicitud['persona_id'] = $usuario->id;
         } else {
@@ -580,7 +580,7 @@ class ClienteController extends Controller
         $diasLimite = $tipo_pqr['tiempos'];
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaSolicitud['persona_id'] = $usuario->id;
         } else {
@@ -661,7 +661,7 @@ class ClienteController extends Controller
         $diaGeneracion = date("Y-m-d");
         $respuestaDias = FechasController::festivos($diasLimite, $diaGeneracion);
 
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         if ($usuario->persona) {
             $nuevaSugerencia['persona_id'] = $usuario->id;
         } else {
@@ -736,7 +736,7 @@ class ClienteController extends Controller
         $tipos_docu = TipoDocumento::get();
         $paises = Pais::get();
         $departamentos = Departamento::get();
-        $usuario = Usuario::findorFail(session('id_usuario'));
+        $usuario = User::findorFail(session('id_usuario'));
         return view('intranet/datos_personales.index', compact('usuario', 'tipos_docu', 'paises', 'departamentos'));
     }
 
@@ -747,7 +747,7 @@ class ClienteController extends Controller
 
     public function cambiar_password_asistido($id)
     {
-        $usuario = Usuario::findOrFail($id);
+        $usuario = User::findOrFail($id);
         return view('intranet/funcionarios/listado_usuarios.cambio_password_asistido', compact('usuario'));
     }
 
@@ -756,7 +756,7 @@ class ClienteController extends Controller
         $tipos_docu = TipoDocumento::get();
         $paises = Pais::get();
         $departamentos = Departamento::get();
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         return view('intranet/crear_usuario_asistido.index', compact('usuario', 'tipos_docu', 'paises', 'departamentos'));
     }
 
@@ -1290,6 +1290,10 @@ class ClienteController extends Controller
                 }
             }
             $max_pqr = 0;
+            $empleados_sel_max = [];
+            if ($empleados->count()==false) {
+                $empleados = Empleado::where('cargo_id', $asignacion_final->cargo_id)->get();
+            }
             foreach ($empleados as $empleado) {
                 $empleados_sel_max[] = ['cant' => $empleado->pqrs->count(), 'id' => $empleado->id];
             }

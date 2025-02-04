@@ -70,6 +70,57 @@ $(document).ready(function() {
         });
     });
     //========================================================================================
+    // Municipios Departamento
+    $('#departamento').on('change', function(event) {
+        const url_t = $(this).attr('data_url');
+        const id = $(this).val();
+        var data = {
+            "id": id,
+        };
+        $.ajax({
+            url: url_t,
+            type: 'GET',
+            data: data,
+            success: function(respuesta) {
+                respuesta_html = '';
+                respuesta_html += '<option value="">--Seleccione un municipio--</option>';
+                $.each(respuesta, function(index, item) {
+                    respuesta_html += '<option value="' + item['id'] + '">' + item['municipio'] + '</option>';
+                });
+                $('#municipio_id').html(respuesta_html);
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        });
+    });
+    //========================================================================================
+    // Sedes Municipios
+    $('#municipio_id').on('change', function(event) {
+        const url_t = $(this).attr('data_url');
+        const id = $(this).val();
+        var data = {
+            "id": id,
+        };
+        $.ajax({
+            url: url_t,
+            type: 'GET',
+            data: data,
+            success: function(respuesta) {
+                respuesta_html = '';
+                respuesta_html += '<option value="">--Seleccione una Sede--</option>';
+                $.each(respuesta, function(index, item) {
+                    respuesta_html += '<option value="' + item['id'] + '">' + item['nombre'] + '</option>';
+                });
+                $('#sede_id').html(respuesta_html);
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        });
+    });
+    //========================================================================================
+
     // Producto Marcas
     $('#producto').on('change', function(event) {
         const url_t = $(this).attr('data_url');

@@ -72,8 +72,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 form-group d-none" id="cajamunicipio_id"><label
                                         for="">Municipio:</label>
-                                    <select class="custom-select rounded-0" data_url="{{ route('cargar_sedes') }}"
-                                        id="municipio_id">
+                                    <select class="custom-select rounded-0" data_url="{{ route('cargar_sedes') }}" id="municipio_id">
                                         <option value="">--Seleccione--</option>
                                     </select>
                                 </div>

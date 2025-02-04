@@ -8,6 +8,7 @@ use App\Http\Controllers\Config\PermisoRolController;
 use App\Http\Controllers\Config\RolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extranet\ExtranetPageController;
+use App\Http\Controllers\Intranet\Email\EmailController;
 use App\Http\Controllers\Intranet\Funcionarios\PQRController;
 use App\Http\Controllers\Intranet\IntranetPageController;
 use App\Http\Controllers\Usuarios\ClienteController;
@@ -163,8 +164,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::get('cargar_marcas', 'cargar_marcas')->name('cargar_marcas');
             Route::get('cargar_referencias', 'cargar_referencias')->name('cargar_referencias');
             //-------------------------------------------------------------------------------------------------
-            Route::get('listado/gestionarPQR/{id}', 'gestionar_PQR')->name('uusuario-gestionarPQR');
-            //-------------------------------------------------------------------------------------------------
             Route::get('generarConceptoUOpinion', 'generarConceptoUOpinion')->name('usuario-generarConceptoUOpinion');
             Route::post('generarConceptoUOpinion', 'generarConceptoUOpinion_guardar')->name('usuario-generarConceptoUOpinion-guardar');
             Route::get('listado/gestionarConceptoUOpinion/{id}', 'gestionar_conceptoUOpinion')->name('usuario-gestionarConceptoUOpinion');
@@ -202,6 +201,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             //-------------------------------------------------------------------------------------------------
             Route::get('download/{id_tipo_pqr}/{id_pqr}', 'download')->name('download');
             //-------------------------------------------------------------------------------------------------
+            Route::get('listado/gestionarPQR/{id}', 'gestionar_PQR')->name('usuario-gestionarPQR');
 
         });
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -211,6 +211,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::post('pqr_estado_recurso', 'pqr_estado_recurso_guardar')->name('pqr_estado_recurso_guardar');
             Route::post('aclaracion_usuario', 'aclaracion_usuario_guardar')->name('aclaracion_usuario_guardar');
             Route::post('aclaracion_anexos_usuario', 'aclaracion_anexos_usuario_guardar')->name('aclaracion_anexos_usuario_guardar');
+            //-------------------------------------------------------------------------------------------------
+
+
         });
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -221,4 +224,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         //-------------------------------------------------------------------------------------------------
     });
 
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //Descarga de pdf
+    Route::get('pqr_radicada_pdf/{id}', [EmailController::class, 'pqrRadicadaPdf'])->name('pqrRadicadaPdf');
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 });

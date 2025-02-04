@@ -4,6 +4,8 @@ namespace App\Models\PQR;
 
 use App\Models\Admin\Cargo;
 use App\Models\Empresas\Sede;
+use App\Models\Parametros\Cargo as ParametrosCargo;
+use App\Models\Parametros\Sede as ParametrosSede;
 use App\Models\Productos\Categoria;
 use App\Models\Productos\Marca;
 use App\Models\Productos\Producto;
@@ -46,7 +48,7 @@ class AsignacionParticular extends Model
     //----------------------------------------------------------------------------------
     public function sede()
     {
-        return $this->belongsTo(Sede::class, 'sede_id', 'id');
+        return $this->belongsTo(ParametrosSede::class, 'sede_id', 'id');
     }
     //----------------------------------------------------------------------------------
     public function producto()
@@ -66,7 +68,7 @@ class AsignacionParticular extends Model
     //----------------------------------------------------------------------------------
     public function cargo()
     {
-        return $this->belongsTo(Cargo::class, 'cargo_id', 'id');
+        return $this->belongsTo(ParametrosCargo::class, 'cargo_id', 'id');
     }
     //----------------------------------------------------------------------------------
 

@@ -24,9 +24,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Facades\Image as InterventionImage;
-
+use Intervention\Image\Laravel\Facades\Image;
 class ExtranetPageController extends Controller
 {
     /**
@@ -192,7 +190,7 @@ class ExtranetPageController extends Controller
         //----------------------------
         if ($request->hasFile('logo')) {
             $imagen_nueva = $request->logo;
-            $imagen_nueva_archivo = InterventionImage::make($imagen_nueva);
+            $imagen_nueva_archivo = Image::make($imagen_nueva);
             $imagen_nueva_bd = time() . $imagen_nueva->getClientOriginalName();
             $imagen_nueva_archivo->resize(600, 600);
             $imagen_nueva_archivo->save($ruta . $imagen_nueva_bd, 100);
