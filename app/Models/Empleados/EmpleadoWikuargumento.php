@@ -2,10 +2,10 @@
 
 namespace App\Models\Empleados;
 
-use App\Models\Admin\WikuArgumento;
-use App\Models\Admin\WikuAutor;
-use App\Models\Admin\WikuAutorInst;
-use App\Models\Admin\WikuTemaEspecifico;
+use App\Models\Wiku\WikuArgumento;
+use App\Models\Wiku\WikuAutor;
+use App\Models\Wiku\WikuAutorInst;
+use App\Models\Wiku\WikuTemaEspecifico;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;

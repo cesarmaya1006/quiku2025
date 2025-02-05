@@ -2,10 +2,10 @@
 
 namespace App\Models\Tutela;
 
-use App\Models\Admin\WikuArgumento;
-use App\Models\Admin\WikuDoctrina;
-use App\Models\Admin\WikuJurisprudencia;
-use App\Models\Admin\WikuNorma;
+use App\Models\Wiku\WikuArgumento;
+use App\Models\Wiku\WikuDoctrina;
+use App\Models\Wiku\WikuJurisprudencia;
+use App\Models\Wiku\WikuNorma;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;

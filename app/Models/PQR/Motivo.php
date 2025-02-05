@@ -2,7 +2,7 @@
 
 namespace App\Models\PQR;
 
-use App\Models\Admin\WikuAsociacion;
+use App\Models\Wiku\WikuAsociacion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
