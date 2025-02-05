@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function(){
     let idPqr = document.querySelector('#id_pqr').value
-    //  Guardar Historial PQR-tarea  
+    //  Guardar Historial PQR-tarea
     if(document.querySelector('#guardarHistorialTarea')){
         let guardarHistorialTarea = document.querySelector('#guardarHistorialTarea')
         guardarHistorialTarea.addEventListener('click', function(e){
@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     data: data,
                     success: function(respuesta) {
                         if(confirmacionAsignacion == 1){
-                            location.reload()    
+                            location.reload()
                         }else{
                             window.location = "/funcionario/gestion_pqr"
                         }
@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', function(){
         })
     }
 
-//  Guardar Historial PQR primera asignación 
+//  Guardar Historial PQR primera asignación
     if(document.querySelector('#guardarHistorial')){
         let guardarHistorial = document.querySelector('#guardarHistorial')
         guardarHistorial.addEventListener('click', function(e){

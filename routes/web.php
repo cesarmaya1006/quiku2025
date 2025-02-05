@@ -9,7 +9,8 @@ use App\Http\Controllers\Config\RolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extranet\ExtranetPageController;
 use App\Http\Controllers\Intranet\Email\EmailController;
-use App\Http\Controllers\Intranet\Funcionarios\PQRController;
+use App\Http\Controllers\Funcionarios\FuncionarioController;
+use App\Http\Controllers\Funcionarios\PQRController;
 use App\Http\Controllers\Intranet\IntranetPageController;
 use App\Http\Controllers\Usuarios\ClienteController;
 use App\Http\Controllers\Parametros\AreaController;
@@ -119,6 +120,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         // ----------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------
     });
+    //--------------------------------------------------------------------------------------------------------------
     Route::prefix('parametros')->middleware(Administrador::class)->group(function () {
         // ----------------------------------------------------------------------------------------
         // Ruta Municipios
@@ -149,6 +151,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         });
         // ----------------------------------------------------------------------------------------
     });
+    //--------------------------------------------------------------------------------------------------------------
     Route::prefix('usuario')->group(function () {
         Route::controller(ClienteController::class)->group(function () {
             Route::get('listado', 'index')->name('usuario-index');
@@ -218,14 +221,78 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     });
+    //--------------------------------------------------------------------------------------------------------------
     Route::controller(ClienteController::class)->group(function () {
         //-------------------------------------------------------------------------------------------------
         Route::get('download/{id_tipo_pqr}/{id_pqr}', 'download')->name('download');
         //-------------------------------------------------------------------------------------------------
     });
+    //--------------------------------------------------------------------------------------------------------------
+    Route::prefix('funcionario')->group(function(){
+        Route::controller(PQRController::class)->group(function(){
+            Route::get('gestion_pqr', 'gestion_pqr')->name('gestion_pqr');
+            Route::post('asignacion', 'asignacion_guardar')->name('asignacion_guardar');
+            Route::post('historial', 'historial_guardar')->name('historial_guardar');
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            Route::post('respuesta_recurso_guardar', 'respuesta_recurso_guardar')->name('respuesta_recurso_guardar');
+            Route::post('respuesta_recurso_actualizar', 'respuesta_recurso_actualizar')->name('respuesta_recurso_actualizar');
+            Route::post('respuesta_recurso_anexos', 'respuesta_recurso_anexos_guardar')->name('respuesta_recurso_anexos_guardar');
+            Route::post('asignacion_asignador', 'asignacion_asignador_guardar')->name('asignacion_asignador_guardar');
+            Route::post('historial', 'historial_guardar')->name('historial_guardar');
+            Route::post('historial_tarea', 'historial_tarea_guardar')->name('historial_tarea_guardar');
+            Route::post('historial_resuelve', 'historial_resuelve_guardar')->name('historial_resuelve_guardar');
+            Route::post('historial_resuelve_recurso', 'historial_resuelve_recurso_guardar')->name('historial_resuelve_recurso_guardar');
+            Route::post('historial_resuelve_eliminar', 'historial_resuelve_eliminar')->name('historial_resuelve_eliminar');
+            Route::post('historial_resuelve_recurso_eliminar', 'historial_resuelve_recurso_eliminar')->name('historial_resuelve_recurso_eliminar');
+            Route::post('historial_resuelve_editar', 'historial_resuelve_editar')->name('historial_resuelve_editar');
+            Route::post('historial_resuelve_recurso_editar', 'historial_resuelve_recurso_editar')->name('historial_resuelve_recurso_editar');
+            Route::post('resuelve_orden', 'resuelve_orden_guardar')->name('resuelve_orden_guardar');
+            Route::post('resuelve_orden_recurso', 'resuelve_orden_recurso_guardar')->name('resuelve_orden_recurso_guardar');
+            Route::post('historial_peticion', 'historial_peticion_guardar')->name('historial_peticion_guardar');
+            Route::post('asignacion_tarea', 'asignacion_tarea_guardar')->name('asignacion_tarea_guardar');
+            Route::post('asignacion_peticion', 'asignacion_peticion_guardar')->name('asignacion_peticion_guardar');
+            Route::post('prioridad', 'prioridad_guardar')->name('prioridad_guardar');
+            Route::post('estado', 'estado_guardar')->name('estado_guardar');
+            Route::post('aclaracion', 'aclaracion_guardar')->name('aclaracion_guardar');
+            Route::post('prorroga', 'prorroga_guardar')->name('prorroga_guardar');
+            Route::post('respuesta', 'respuesta_guardar')->name('respuesta_guardar');
+            Route::post('respuesta_anexo', 'respuesta_anexo_guardar')->name('respuesta_anexo_guardar');
+            Route::post('plazo_recurso', 'plazo_recurso_guardar')->name('plazo_recurso_guardar');
+            Route::get('cargar_tareas', 'cargar_tareas')->name('cargar_tareas');
+            Route::get('cargar_cargos', 'cargar_cargos')->name('cargar_cargos');
+            Route::get('cargar_funcionarios', 'cargar_funcionarios')->name('cargar_funcionarios');
+            Route::post('pqr_anexo', 'pqr_anexo_guardar')->name('pqr_anexo_guardar');
+            Route::get('respuestaPQR/{id}', 'respuestaPQR')->name('respuestaPQR');
+            Route::get('respuestaPQRRecurso/{id}/{tipo_recurso}', 'respuestaPQRRecurso')->name('respuestaPQRRecurso');
+            Route::get('descarga_respuestaPQR/{id}', 'descarga_respuestaPQR')->name('descarga_respuestaPQR');
+            Route::get('usuario_descarga_respuestaPQR/{id}', 'usuario_descarga_respuestaPQR')->name('usuario_descarga_respuestaPQR');
+            Route::post('cambiar_estado_tareas', 'cambiar_estado_tareas_guardar')->name('cambiar_estado_tareas_guardar');
+            Route::get('cambiar-password-asistido/{id}', 'cambiar_password_asistido')->name('funcionario_cambiar_password_asistido');
+        });
+    });
+    //--------------------------------------------------------------------------------------------------------------
+    Route::prefix('admin')->group(function(){
+        Route::controller(FuncionarioController::class)->group(function(){
+            Route::get('gestion', 'gestion')->name('tutela-gestion');
+            Route::get('index/gestionarAsignacion/{id}', 'gestionar_asignacion')->name('funcionario-gestionar-asignacion');
+            Route::get('index/gestionarAsignacion/{id}', 'gestionar_asignacion')->name('funcionario-gestionar-asignacion');
+            Route::get('index/gestionarAsignacionAsignador/{id}', 'gestionar_asignacion_asignador')->name('funcionario-gestionar-asignacion-asignador');
+            Route::get('index/gestionarAsignacionSupervisa/{id}', 'gestionar_asignacion_supervisa')->name('funcionario-gestionar-asignacion-supervisa');
+            Route::get('index/gestionarAsignacionProyecta/{id}', 'gestionar_asignacion_proyecta')->name('funcionario-gestionar-asignacion-proyecta');
+            Route::get('index/gestionarAsignacionRevisa/{id}', 'gestionar_asignacion_revisa')->name('funcionario-gestionar-asignacion-revisa');
+            Route::get('index/gestionarAsignacionAprueba/{id}', 'gestionar_asignacion_aprueba')->name('funcionario-gestionar-asignacion-aprueba');
+            Route::get('index/gestionarAsignacionRevisaAprueba/{id}', 'gestionar_asignacion_revisa_aprueba')->name('funcionario-gestionar-asignacion-revisa-aprueba');
+            Route::get('index/gestionarAsignacionRadica/{id}', 'gestionar_asignacion_radica')->name('funcionario-gestionar-asignacion-radica');
+            Route::get('registro', 'registro')->name('funcionario-registro');
+            Route::get('listado', 'listado')->name('tutela-listado');
+            Route::get('gestion', 'gestion')->name('tutela-gestion');
+            Route::get('gestionar_asignacion_tutela/{id}', 'gestionar_asignacion_tutela')->name('gestionar_asignacion_tutela');
+        });
+
+    });
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Descarga de pdf
-    Route::get('pqr_radicada_pdf/{id}', [EmailController::class, 'pqrRadicadaPdf'])->name('pqrRadicadaPdf');
+    //Route::get('gestion_pqr', [EmailController::class, 'gestion_pqr'])->name('gestion_pqr');
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 });

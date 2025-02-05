@@ -109,7 +109,6 @@ class User extends Authenticatable
         if ($this->empleado) {
             Session::put([
             'cargo_id' => $this->empleado->cargo->cargo,
-            'clinica_id' => $this->empleado->cargo->area->clinica->id,
             ]);
         }
     }

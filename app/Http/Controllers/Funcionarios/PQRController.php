@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Funcionarios;
+namespace App\Http\Controllers\Funcionarios;
 
 use App\Mail\Prorroga;
 use App\Models\PQR\PQR;
@@ -44,6 +44,7 @@ use App\Http\Controllers\Fechas\FechasController;
 use App\Models\Admin\Usuario;
 use App\Models\Parametros\Cargo;
 use App\Models\PQR\ResuelveRecurso;
+use App\Models\User;
 use App\Models\Wiku\WikuArea;
 use App\Models\Wiku\WikuArgumento;
 use App\Models\Wiku\WikuDocument;
@@ -62,9 +63,7 @@ class PQRController extends Controller
     public function gestion_pqr()
     {
         $pqrs = PQR::where('empleado_id', session('id_usuario'))->get();
-        $sin_aceptar = PQR::where('empleado_id', session('id_usuario'))
-            ->where('estado_asignacion', 0)
-            ->get();
+        $sin_aceptar = PQR::where('empleado_id', session('id_usuario'))->where('estado_asignacion', 0)->get();
         $aceptadas = PQR::where('empleado_id', session('id_usuario'))
             ->where('estado_asignacion', 1)
             ->where('estadospqr_id', '!=', 6)
@@ -124,7 +123,7 @@ class PQRController extends Controller
         }
 
         $tipoPQR = tipoPQR::all();
-        $usuario = Usuario::findOrFail(session('id_usuario'));
+        $usuario = User::findOrFail(session('id_usuario'));
         $tareas = AsignacionTarea::where('empleado_id', $usuario->id)->get();
         if (session('rol_id') == 5) {
             if ($usuario->empleado->cargo->id == 1) {
@@ -136,12 +135,10 @@ class PQRController extends Controller
         } else {
             $pqrs = PQR::get();
         }
-        $peticiones = Peticion::where('empleado_id', session('id_usuario'))
-            ->where('estado_id', '<', 11)
-            ->get();
+        $peticiones = Peticion::where('empleado_id', session('id_usuario'))->where('estado_id', '<', 11)->get();
 
-        return view(
-            'intranet.funcionarios.pqr.gestion_pqr',
+
+        return view('intranet.funcionarios.pqr.gestion_pqr',
             compact(
                 'pqrs',
                 'usuario',
