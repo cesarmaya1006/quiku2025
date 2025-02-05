@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Empresas;
+namespace App\Http\Controllers\Parametros;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\WikuArea;

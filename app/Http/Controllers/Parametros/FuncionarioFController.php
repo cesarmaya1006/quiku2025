@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Empresas;
+namespace App\Http\Controllers\Parametros;
 
 use Illuminate\Http\Request;
 use App\Models\Admin\Usuario;
