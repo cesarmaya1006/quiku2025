@@ -97,11 +97,11 @@ class MenuSeeder extends Seeder
                 'nombre' => 'PQR', 'menu_id' => null, 'url' => '#', 'orden' => '3', 'icono' => 'fas fa-info-circle',
                 'Array_1' => [
                     //TUTELAS Listado PQR
-                    ['nombre' => 'Listado PQR', 'menu_id' => '2',  'url' =>  'tutelas/registro', 'orden' => '1',  'icono' => 'fas fa-question-circle', 'Array_1' => []],
+                    ['nombre' => 'Listado PQR', 'menu_id' => '2',  'url' =>  'funcionario/listado', 'orden' => '1',  'icono' => 'fas fa-question-circle', 'Array_1' => []],
                     //TUTELAS Listado usuarios
-                    ['nombre' => 'Listado usuarios', 'menu_id' => '2',  'url' =>  'tutelas/listado', 'orden' => '2',  'icono' => 'fas fa-list-ul', 'Array_1' => []],
+                    ['nombre' => 'Listado usuarios', 'menu_id' => '2',  'url' =>  'funcionario/usuarios-listado', 'orden' => '2',  'icono' => 'fas fa-list-ul', 'Array_1' => []],
                     //TUTELAS Gestionar PQR
-                    ['nombre' => 'Gestionar PQR', 'menu_id' => '2',  'url' =>  'tutelas/consulta', 'orden' => '1',  'icono' => 'fas fa-grip-horizontal', 'Array_1' => []],
+                    ['nombre' => 'Gestionar PQR', 'menu_id' => '2',  'url' =>  'funcionario/gestion_pqr', 'orden' => '1',  'icono' => 'fas fa-grip-horizontal', 'Array_1' => []],
                 ],
             ],
 
@@ -170,6 +170,15 @@ class MenuSeeder extends Seeder
         foreach ($menus as $menu) {
             DB::table('menu_rol')->insert(['menu_id' => $menu->id, 'rol_id' => 1,]);
         }
+        $menuFuncionarios = $menus->whereIn('id',[1,22,23,24,25,33,34,35,36,37]);
+        foreach ($menuFuncionarios as $menu) {
+            DB::table('menu_rol')->insert(['menu_id' => $menu->id, 'rol_id' => 5,]);
+        }
+        $menuUsuarios = $menus->whereIn('id',[1,9,10,11,33,34,35,36,37]);
+        foreach ($menuUsuarios as $menu) {
+            DB::table('menu_rol')->insert(['menu_id' => $menu->id, 'rol_id' => 6,]);
+        }
+
         // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
         /*DB::table('menu_rol')->insert(['menu_id' => 1, 'rol_id' => 2,]);
         for ($i = 17; $i < 34; $i++) {

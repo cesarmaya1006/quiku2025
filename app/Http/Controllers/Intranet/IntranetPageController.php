@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ValidarPassword;
 use App\Models\Empleados\Empleado;
 use App\Models\PQR\Estado;
 use App\Models\PQR\tipoPQR;
@@ -114,5 +115,12 @@ class IntranetPageController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function restablecer_password(ValidarPassword $request)
+    {
+        $nuevoPassword['password'] = bcrypt(utf8_encode($request['password1']));
+        $nuevoPassword['camb_password'] = 0;
+        Usuario::findOrFail($request['id'])->update($nuevoPassword);
+        return redirect('admin/index')->with('mensaje', 'Se cambio la contraseña de manera exitosa en la plataforma');
     }
 }
