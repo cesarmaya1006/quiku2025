@@ -722,7 +722,7 @@ class WikuController extends Controller
         $demandantes = WikuDemandante::get();
         $demandados = WikuDemandado::get();
         $anno = date('Y');
-        return view('intranet.parametros.wiku.funcionario.index', compact('areas', 'fuentes', 'tipos_pqr', 'categorias', 'servicios', 'entes', 'magistrados', 'demandantes', 'demandados', 'anno'));
+       return view('intranet.parametros.wiku.funcionario.index', compact('areas', 'fuentes', 'tipos_pqr', 'categorias', 'servicios', 'entes', 'magistrados', 'demandantes', 'demandados', 'anno'));
     }
     public function indexWikuNormas()
     {
