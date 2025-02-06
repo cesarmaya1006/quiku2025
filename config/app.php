@@ -124,9 +124,7 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-    'aliases' => Facade::defaultAliases()->merge([
-        'MayoHelper' => App\Helpers\MayoFuncionesHelper::class,
-    ])->toArray(),
+    'aliases' => Facade::defaultAliases()->merge(['MayoHelper' => App\Helpers\MayoFuncionesHelper::class,])->toArray(),
 
 
 
