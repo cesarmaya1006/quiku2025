@@ -745,7 +745,7 @@
                                                                     <td>Respuesta apelación</td>
                                                                 @endif
                                                                 <td class="text-justify"><a
-                                                                        href="{{ asset('documentos/tareas/' . $anexo->url) }}"
+                                                                        href="{{ route('usuario_descarga_respuestaPQR', ['id' => $anexo->id]) }}"
                                                                         target="_blank" rel="noopener noreferrer"><i
                                                                             class="fa fa-download" aria-hidden="true"></i></a></td>
                                                             </tr>
