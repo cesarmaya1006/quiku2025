@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Funcionarios;
+namespace App\Http\Controllers\Funcionarios;
 
 use App\Models\PQR\tipoPQR;
 use App\Models\Tutela\Tarea;

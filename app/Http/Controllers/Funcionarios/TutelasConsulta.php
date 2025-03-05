@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Funcionarios;
+namespace App\Http\Controllers\Funcionarios;
 
 use DateTime;
 use Carbon\Carbon;

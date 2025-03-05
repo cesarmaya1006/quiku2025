@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Intranet\Funcionarios;
+namespace App\Http\Controllers\Funcionarios;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tutela\Motivotutela;
