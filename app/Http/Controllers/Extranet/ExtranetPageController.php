@@ -133,17 +133,6 @@ class ExtranetPageController extends Controller
         $tipopersona = $usuarioTemp->tipo_persona;
         $cedula = $usuarioTemp->identificacion;
         $email = $usuarioTemp->email;
-        // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-        //produccion Pruebas
-        //$headers =  'MIME-Version: 1.0' . "\r\n";
-        //$headers .= 'From: Your name <info@address.com>' . "\r\n";
-        //$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        //$mensaje = $this->mensajeRegistroinicial($id, $tipopersona, $cedula);
-        //$para = 'jgmedina73@gmail.com';
-        //$titulo = 'Registro plataforma Quiku';
-        //mail($para, $titulo, $mensaje, $headers);
-        // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-        // Desarrollo
         Mail::to($email)->send(new RegistroInicial($id, $tipopersona, $cedula));
         return redirect('/registro_conf');
     }

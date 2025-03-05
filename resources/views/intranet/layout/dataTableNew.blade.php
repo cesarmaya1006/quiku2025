@@ -11,6 +11,80 @@
 <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $(".tabla_data_table_inicial").DataTable({
+            scrollX: true,
+            ordering: false,
+            pageLength: 10,
+            layout: {
+                topStart: {
+                    pageLength: {
+                        menu: [ 5, 10, 25, 50, 100 ]
+                    }
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Buscar'
+                    }
+                }
+            },
+            language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ resultados",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando resultados _START_-_END_ de  _TOTAL_",
+                sInfoEmpty: "Mostrando resultados del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sSearch: "Buscar:",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior",
+                },
+            },
+        });
+
+        $(".tabla_data_table_inicial_opt").DataTable({
+            pageLength: $(this).attr('data_pageLength'),
+            layout: {
+                top2Start: {
+                    pageLength: {
+                        menu: [ 5, 10, 25, 50, 100 ]
+                    }
+                },
+                top2End: null
+                ,topStart: {
+                    buttons: [{extend: 'excel',title:$(this).attr('data_titulo')},{extend: 'pdf',title: $(this).attr('data_titulo')}]
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Buscar'
+                    }
+                }
+            },
+            language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ resultados",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando resultados _START_-_END_ de  _TOTAL_",
+                sInfoEmpty: "Mostrando resultados del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sSearch: "Buscar:",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior",
+                },
+            },
+        });
+    });
+
     function asignarDataTableAjax(table_id,titulo_tabla) {
         $(table_id).DataTable({
             bSort: false,

@@ -109,6 +109,7 @@ class User extends Authenticatable
         if ($this->empleado) {
             Session::put([
             'cargo_id' => $this->empleado->cargo->cargo,
+            'foto' => $this->empleado->url
             ]);
         }
     }
