@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="d-flex justify-content-around">
                                         <div class="centrar-items">
-                                            <button class="mt-2 btn btn-primary" type="submit">Iniciar sesión</button>
+                                            <button class="mt-2 btn btn-primary" type="submit">Iniciar Sesión</button>
                                         </div>
                                         <div class="centrar-items">
                                             <a href="{{ route('extranet.registro_ini') }}" class="mt-2 btn btn-primary">Registrarse</a>
