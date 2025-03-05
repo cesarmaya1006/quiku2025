@@ -28,7 +28,6 @@ use App\Models\PQR\DocRespRecurso;
 use App\Models\PQR\HistorialTarea;
 use App\Models\PQR\TipoReposicion;
 use App\Models\Servicios\Servicio;
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\PQR\AsignacionTarea;
 use App\Models\Productos\Categoria;
 use App\Http\Controllers\Controller;
@@ -50,6 +49,7 @@ use App\Models\Wiku\WikuArgumento;
 use App\Models\Wiku\WikuDocument;
 use App\Models\Wiku\WikuNorma;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class PQRController extends Controller
@@ -1306,10 +1306,7 @@ class PQRController extends Controller
         $imagen = asset('imagenes/sistema/logo_mgl.png'); //url_servidor
 
         $firma = '';
-        $pdf = DomPDFPDF::loadView(
-            'intranet.funcionarios.pqr.respuesta_pqr',
-            compact('pqr', 'imagen', 'resuelves', 'firma')
-        );
+        $pdf = Pdf::loadView('intranet.funcionarios.pqr.respuesta_pqr',compact('pqr', 'imagen', 'resuelves', 'firma'));
         return $pdf->download('Respuesta-' . $pqr->radicado . '.pdf');
     }
 
@@ -1317,7 +1314,7 @@ class PQRController extends Controller
     {
         $respuesta = PqrAnexo::findOrFail($id);
         $pqr = $respuesta->pqr;
-        $pdf = DomPDFPDF::loadHTML($respuesta->respuesta);
+        $pdf = Pdf::loadHTML($respuesta->respuesta);
         return $pdf->download('Respuesta-' . $pqr->radicado . '.pdf');
     }
 
