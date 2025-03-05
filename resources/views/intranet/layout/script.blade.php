@@ -23,4 +23,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{asset('fontawesome/fontawesome_all.min.js')}}"></script>
 <script src="{{asset('js/intranet/general/general.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
