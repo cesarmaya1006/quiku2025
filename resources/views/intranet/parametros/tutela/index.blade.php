@@ -1,4 +1,4 @@
-@extends('theme.back.plantilla')
+@extends('intranet.layout.app')
 <!-- ************************************************************* -->
 <!-- Funciones php -->
 @section('funciones_php')
