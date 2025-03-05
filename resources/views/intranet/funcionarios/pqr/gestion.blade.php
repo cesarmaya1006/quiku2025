@@ -7,6 +7,7 @@
 <!-- Pagina CSS -->
 @section('css_pagina')
     <link rel="stylesheet" href="{{ asset('css/intranet/index.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 @endsection
 <!-- ************************************************************* -->
 @section('tituloPagina')
@@ -1249,6 +1250,6 @@
 @section('script_pagina')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('js/intranet/generar_pqr/gestion.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 @endsection
 <!-- ************************************************************* -->
