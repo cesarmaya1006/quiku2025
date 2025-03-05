@@ -33,7 +33,7 @@ class CreateEmpleadoWikuargumentosTable extends Migration
             $table->boolean('publico')->default(0);
             $table->bigInteger('estado')->default(1);
             $table->text('observacion');
-            $table->text('respuesta');
+            $table->text('respuesta')->default('');
             $table->timestamps();
             $table->charset = 'utf8';
             $table->collation = 'utf8_spanish_ci';
