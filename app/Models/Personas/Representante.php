@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models\Personas;
+
+use App\Models\Admin\Tipo_Docu;
+use App\Models\Empresa\Empresa;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+
+class Representante extends Model
+{
+    use HasFactory, Notifiable;
+    protected $table = 'representantes';
+    protected $guarded = [];
+    //----------------------------------------------------------------------------------
+    public function usuario()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
+    //----------------------------------------------------------------------------------
+    public function tipos_docu()
+    {
+        return $this->belongsTo(Tipo_Docu::class, 'docutipos_id', 'id');
+    }
+    public function empresas()
+    {
+        return $this->hasMany(Empresa::class, 'representante_id', 'id');
+    }
+}

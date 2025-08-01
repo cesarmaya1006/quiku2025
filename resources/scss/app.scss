@@ -1,0 +1,9 @@
+// 1. Sobrescribe variables de Bootstrap
+//$primary: #f15bb5 !default;
+//$body-bg: #fafafa !default;
+
+// 2. Importa Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// 3. Añade tus estilos personalizados
+//body {font-family: 'Nunito', sans-serif;}
