@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             Tabla_Cargos::class,
             Tabla_TiposReposicion::class,
             Tabla_AreasInfluencia::class,
+            Tabla_Usuarios::class,
 
         ]);
     }

@@ -22,6 +22,12 @@ class ExtranetController extends Controller
         return view('extranet.registro.registro_ini', compact('tipos_docu'));
     }
 
+    public function correo()
+    {
+        return view('extranet.login.correo');
+    }
+
+
     public function registro_ini_guardar(ValidarRegistroIni $request)
     {
         $usuarioTemp = UsuarioTemp::create($request->all());
