@@ -1,6 +1,5 @@
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
-        {{-- Generar PQR --}}
         <div class="col-12">
             <div class="card card-primary">
                 <div class="card-header">
@@ -9,6 +8,7 @@
                 <div class="card-body">
                     <div class="row d-flex">
                         @foreach ($tipoPQR as $tipo)
+                            <div class="col-12">1{{ $tipo->id }}</div>
                             @if ($tipo->id == 1 || $tipo->id == 2 || $tipo->id == 3 || $tipo->id == 5 || $tipo->id == 7 || $tipo->id == 8)
                                 <div class="col-12 col-md-4">
                                     <div class="card card-Light collapsed-card" style="box-shadow: 0px 0px 0px 0px ;">
