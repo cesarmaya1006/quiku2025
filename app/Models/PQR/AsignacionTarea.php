@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class AsignacionTarea extends Model
 {
     use HasFactory, Notifiable;
-    protected $table = 'asignancion_tareas_tutela';
+    protected $table = 'asignancion_tareas';
     protected $guarded = [];
     //----------------------------------------------------------------------------------
     public function tarea()

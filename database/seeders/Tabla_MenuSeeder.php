@@ -131,6 +131,26 @@ class Tabla_MenuSeeder extends Seeder
         DB::table('menu_rol')->insert(['menu_id' => 1, 'rol_id' => 8,]);
 
         // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
+        for ($i = 9; $i <= 16; $i++) {
+            DB::table('menu_rol')->insert(['menu_id' => $i,'rol_id' => '6',]);
+        }
+        // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
+        for ($i = 15; $i <= 16; $i++) {
+            DB::table('menu_rol')->insert(['menu_id' => $i,'rol_id' => '5',]);
+        }
+        // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
+        DB::table('menu_rol')->insert(['menu_id' => 31, 'rol_id' => 5,]);
+         for ($i = 22; $i <= 30; $i++) {
+            DB::table('menu_rol')->insert(['menu_id' => $i,'rol_id' => '5',]);
+        }
+        // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
+         for ($i = 17; $i <= 21; $i++) {
+            DB::table('menu_rol')->insert(['menu_id' => $i,'rol_id' => '3',]);
+        }
+        // -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
+        DB::table('menu_rol')->insert(['menu_id' => 31, 'rol_id' => 3,]);
+        DB::table('menu_rol')->insert(['menu_id' => 32, 'rol_id' => 3,]);
+        DB::table('menu_rol')->insert(['menu_id' => 33, 'rol_id' => 3,]);
     }
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public function sub_menu($Array_1, $x)

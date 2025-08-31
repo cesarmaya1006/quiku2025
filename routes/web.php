@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\Cliente\ClienteController;
+use App\Http\Controllers\Config\ExtraPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extranet\ExtranetController;
 use App\Http\Controllers\Intranet\Admin\IntranetPageController;
 use App\Http\Controllers\Intranet\Admin\UsuarioController;
+use App\Http\Controllers\Intranet\PQR\FuncionarioController;
 use App\Http\Controllers\PQR\PQRController;
 use App\Http\Middleware\Administrador;
 use App\Http\Middleware\AdminSistema;
+use App\Http\Middleware\Funcionario;
 use App\Http\Middleware\Usuario;
 
 Route::controller(ExtranetController::class)->group(function () {
@@ -20,6 +23,15 @@ Route::controller(ExtranetController::class)->group(function () {
 
 Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/', [IntranetPageController::class, 'dashboard'])->name('dashboard');
+    //===================================================================================================
+    Route::controller(ExtraPageController::class)->group(function () {
+        Route::get('cargar_municipios', 'cargar_municipios')->name('cargar_municipios');
+        Route::get('cargar_sedes', 'cargar_sedes')->name('cargar_sedes');
+        Route::get('cargar_productos', 'cargar_productos')->name('cargar_productos');
+        Route::get('cargar_marcas', 'cargar_marcas')->name('cargar_marcas');
+        Route::get('cargar_referencias', 'cargar_referencias')->name('cargar_referencias');
+        Route::get('cargar_submotivos', 'cargar_submotivos')->name('cargar_submotivos');
+    });
     //===================================================================================================
     Route::prefix('configuracion_sis')->middleware(Administrador::class)->group(function () {
         // ----------------------------------------------------------------------------------------
@@ -44,10 +56,9 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
             Route::post('generarPQR', 'generarPQR_guardar')->name('usuario.generarPQR-guardar');
             Route::get('generarPQR-motivos/{id}', 'generarPQR_motivos')->name('usuario.generarPQR_motivos');
             Route::post('generarPQR-motivos', 'generarPQR_motivos_guardar')->name('usuario.generarPQR_motivos-guardar');
-            Route::get('cargar_submotivos', 'cargar_submotivos')->name('cargar_submotivos');
-            Route::get('cargar_productos', 'cargar_productos')->name('cargar_productos');
-            Route::get('cargar_marcas', 'cargar_marcas')->name('cargar_marcas');
-            Route::get('cargar_referencias', 'cargar_referencias')->name('cargar_referencias');
+
+
+
             Route::get('listado/gestionarPQR/{id}', 'gestionar_PQR')->name('usuario.gestionarPQR');
             Route::get('generarConceptoUOpinion', 'generarConceptoUOpinion')->name('usuario.generarConceptoUOpinion');
             Route::post('generarConceptoUOpinion', 'generarConceptoUOpinion_guardar')->name('usuario.generarConceptoUOpinion-guardar');
@@ -85,7 +96,32 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
         // ----------------------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------------------
+    });
+    //===================================================================================================
+    Route::middleware(Funcionario::class)->prefix('funcionario')->group(function () {
+        Route::controller(PQRController::class)->group(function () {
+            Route::get('gestion_pqr', 'gestion_pqr')->name('gestion_pqr');
+            Route::post('asignacion', 'asignacion_guardar')->name('asignacion_guardar');
+            Route::get('cargar_tareas', 'cargar_tareas')->name('cargar_tareas');
+            Route::get('cargar_cargos', 'cargar_cargos')->name('cargar_cargos');
+            Route::get('cargar_funcionarios', 'cargar_funcionarios')->name('cargar_funcionarios');
+            Route::post('asignacion_tarea', 'asignacion_tarea_guardar')->name('asignacion_tarea_guardar');
+            Route::post('historial_tarea', 'historial_tarea_guardar')->name('historial_tarea_guardar');
+            Route::post('historial', 'historial_guardar')->name('historial_guardar');
+        });
+        // ----------------------------------------------------------------------------------------
+        Route::controller(FuncionarioController::class)->group(function () {
+            Route::post('gestion', 'gestion')->name('tutela-gestion');
+            Route::get('gestionarAsignacion/{id}', 'gestionar_asignacion')->name('funcionario-gestionar-asignacion');
+            Route::get('gestionarAsignacionAsignador/{id}', 'gestionar_asignacion_asignador')->name('funcionario-gestionar-asignacion-asignador');
+            Route::get('gestionarAsignacionSupervisa/{id}', 'gestionar_asignacion_supervisa')->name('funcionario-gestionar-asignacion-supervisa');
+            Route::get('gestionarAsignacionProyecta/{id}', 'gestionar_asignacion_proyecta')->name('funcionario-gestionar-asignacion-proyecta');
+            Route::get('gestionarAsignacionRevisa/{id}', 'gestionar_asignacion_revisa')->name('funcionario-gestionar-asignacion-revisa');
+            Route::get('gestionarAsignacionAprueba/{id}', 'gestionar_asignacion_aprueba')->name('funcionario-gestionar-asignacion-aprueba');
+            Route::get('gestionarAsignacionRevisaAprueba/{id}', 'gestionar_asignacion_revisa_aprueba')->name('funcionario-gestionar-asignacion-revisa-aprueba');
+            Route::get('gestionarAsignacionRadica/{id}', 'gestionar_asignacion_radica')->name('funcionario-gestionar-asignacion-radica');
 
+        });
     });
     //===================================================================================================
 });

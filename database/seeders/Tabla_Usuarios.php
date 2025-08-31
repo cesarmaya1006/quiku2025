@@ -285,10 +285,16 @@ class Tabla_Usuarios extends Seeder
                 'email' => 'empleado'. $i .'@mgl.com',
                 'password' => bcrypt('clave')
             ])->syncRoles('Funcionario');
+            $collection = collect([3, 4, 5, 6, 7]);
+            if ($i<10) {
+                $cargoid = $collection->random();
+            }else{
+                $cargoid = 2;
+            }
             $empleadoArray = Empleado::create([
                 'id' => $usuarioArray->id,
                 'docutipos_id' => 1,
-                'cargo_id' => 2,
+                'cargo_id' => $cargoid,
                 'sede_id' => 1,
                 'identificacion' => '90000000' . $i ,
                 'nombre1' => $empleado['nombre1'],
