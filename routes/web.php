@@ -122,6 +122,17 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
             Route::post('aclaracion', 'aclaracion_guardar')->name('aclaracion_guardar');
             Route::post('respuesta', 'respuesta_guardar')->name('respuesta_guardar');
             Route::post('respuesta_anexo', 'respuesta_anexo_guardar')->name('respuesta_anexo_guardar');
+            Route::get('respuestaPQR/{id}', 'respuestaPQR')->name('respuestaPQR');
+            Route::get('respuestaPQRRecurso/{id}/{tipo_recurso}', 'respuestaPQRRecurso')->name('respuestaPQRRecurso');
+            Route::get('descarga_respuestaPQR/{id}', 'descarga_respuestaPQR')->name('descarga_respuestaPQR');
+            Route::get('usuario_descarga_respuestaPQR/{id}', 'usuario_descarga_respuestaPQR')->name('usuario_descarga_respuestaPQR');
+            Route::post('pqr_anexo', 'pqr_anexo_guardar')->name('pqr_anexo_guardar');
+            Route::post('cambiar_estado_tareas',  'cambiar_estado_tareas_guardar')->name('cambiar_estado_tareas_guardar');
+            Route::post('historial_resuelve', 'historial_resuelve_guardar')->name('historial_resuelve_guardar');
+            Route::post('historial_resuelve_eliminar', 'historial_resuelve_eliminar')->name('historial_resuelve_eliminar');
+            Route::post('resuelve_orden', 'resuelve_orden_guardar')->name('resuelve_orden_guardar');
+            Route::post('historial_resuelve_editar', 'historial_resuelve_editar')->name('historial_resuelve_editar');
+            Route::post('plazo_recurso', 'plazo_recurso_guardar')->name('plazo_recurso_guardar');
         });
         // ----------------------------------------------------------------------------------------
         Route::controller(FuncionarioController::class)->group(function () {
@@ -281,6 +292,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
             Route::get('asignacion_particular-cargar_municipio', 'cargar_municipio')->name('admin-funcionario-asignacion_particular-cargar_municipio');
             Route::get('asignacion_particular-cargar_sede', 'cargar_sede')->name('admin-funcionario-asignacion_particular-cargar_sede');
             Route::get('asignacion_particular-cargar_cargo', 'cargar_cargo')->name('admin-funcionario-asignacion_particular-cargar_cargo');
+
             // ------------------------------------------------------------------------------------
         });
         // ----------------------------------------------------------------------------------------
@@ -298,7 +310,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
             Route::get('gestionarAsignacionProyectaTutela/{id}', 'gestionar_asignacion_proyecta_tutela')->name('gestionar_asignacion_proyecta_tutela');
             Route::get('gestionarAsignacionRevisaApruebaTutela/{id}', 'gestionar_asignacion_revisa_aprueba_tutela')->name('gestionar_asignacion_revisa_aprueba_tutela');
             Route::get('gestionarAsignacionRadicaTutela/{id}', 'gestionar_asignacion_radica_tutela')->name('gestionar_asignacion_radica_tutela');
-            Route::post('prioridad', 'prioridad_tutela_guardar')->name('prioridad_tutela_guardar');
+            Route::post('prioridad_tutela_guardar', 'prioridad_tutela_guardar')->name('prioridad_tutela_guardar');
             Route::post('estado_hecho', 'estado_hecho_guardar')->name('estado_hecho_guardar');
             Route::post('estado_pretension', 'estado_pretension_guardar')->name('estado_pretension_guardar');
             Route::post('estado_resuelve', 'estado_resuelve_guardar')->name('estado_resuelve_guardar');

@@ -15,6 +15,14 @@ use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
 {
+    public function gestionar_asignacion_revisa_aprueba($id)
+    {
+        $estados = AsignacionEstado::all();
+        $pqr = PQR::findorFail($id);
+        $estadoPrioridad = Prioridad::all();
+        return view('intranet.funcionarios.gestion_asignacion_revisa_aprueba', compact('pqr', 'estadoPrioridad', 'estados'));
+    }
+
     public function gestionar_asignacion_proyecta($id)
     {
         $estados = AsignacionEstado::all();

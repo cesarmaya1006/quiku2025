@@ -693,14 +693,14 @@
                                 <tr>
                                     <td class="text-center" style="white-space:nowrap;">{{ $pqr->fecha_radicado }}</td>
                                     <td class="text-center" style="white-space:nowrap;">{{ $pqr->estado->estado_funcionario }}</td>
-                                    <td class="text-center" style="white-space:nowrap;">{{ $tarea->pqr->radicado }}</td>
-                                    <td class="text-center" style="white-space:nowrap;">{{ $tarea->pqr->tipoPqr->tipo }}</td>
+                                    <td class="text-center" style="white-space:nowrap;">{{ $pqr->radicado }}</td>
+                                    <td class="text-center" style="white-space:nowrap;">{{ $pqr->tipoPqr->tipo }}</td>
                                     <td class="text-center" style="white-space:nowrap;">
-                                        {{ $tarea->pqr->persona_id != null ? $tarea->pqr->persona->nombre1 . ' ' . $tarea->pqr->persona->nombre2 . ' ' . $tarea->pqr->persona->apellido1 . ' ' . $tarea->pqr->persona->apellido2 : $tarea->pqr->empresa->nombre1 . ' ' . $tarea->pqr->empresa->nombre2 . ' ' . $tarea->pqr->empresa->apellido1 . ' ' . $tarea->pqr->empresa->apellido2 }}
+                                        {{ $pqr->persona_id != null ? $pqr->persona->nombre1 . ' ' . $pqr->persona->nombre2 . ' ' . $pqr->persona->apellido1 . ' ' . $pqr->persona->apellido2 : $pqr->empresa->nombre1 . ' ' . $pqr->empresa->nombre2 . ' ' . $pqr->empresa->apellido1 . ' ' . $pqr->empresa->apellido2 }}
                                     </td>
-                                    <td class="text-center" style="white-space:nowrap;">{{ $tarea->pqr->prioridad->prioridad }}</td>
+                                    <td class="text-center" style="white-space:nowrap;">{{ $pqr->prioridad->prioridad }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('funcionario-gestionar-asignacion-revisa-aprueba', ['id' => $tarea->pqr->id]) }}" class="btn-accion-tabla eliminar tooltipsC" title="Gestionar">
+                                        <a href="{{ route('funcionario-gestionar-asignacion-revisa-aprueba', ['id' => $pqr->id]) }}" class="btn-accion-tabla eliminar tooltipsC" title="Gestionar">
                                             <i class="fa fa-edit text-info btn-editar" aria-hidden="true"></i>
                                         </a>
                                     </td>
