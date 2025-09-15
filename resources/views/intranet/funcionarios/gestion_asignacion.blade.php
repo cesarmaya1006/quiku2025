@@ -480,7 +480,7 @@
                                     <textarea class="form-control" rows="3" placeholder="" name="mensaje-historial" id="mensaje-historial" required></textarea>
                                 </div>
                                 <div class="col-12 col-md-12 form-group d-flex">
-                                    <button href="" class="btn btn-primary px-4" id="guardarHistorial" data_url="{{ route('historial_guardar') }}" data_token="{{ csrf_token() }}">Guardar historial</button>
+                                    <button href="" class="btn btn-primary px-4" id="guardarHistorial" data_url="{{ route('historial_guardar') }}"  data_token="{{ csrf_token() }}">Guardar historial</button>
                                 </div>
                             </div>
                         </div>

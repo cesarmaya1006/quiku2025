@@ -111,7 +111,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', config('jetstream.auth_s
             Route::get('cargar_funcionarios', 'cargar_funcionarios')->name('cargar_funcionarios');
             Route::post('asignacion_tarea', 'asignacion_tarea_guardar')->name('asignacion_tarea_guardar');
             Route::post('historial_tarea', 'historial_tarea_guardar')->name('historial_tarea_guardar');
-            Route::post('historial', 'historial_guardar')->name('historial_guardar');
+            Route::post('historial_guardar', 'historial_guardar')->name('historial_guardar');
             Route::post('prioridad', 'prioridad_guardar')->name('prioridad_guardar');
             Route::post('prorroga', 'prorroga_guardar')->name('prorroga_guardar');
             Route::post('estado', 'estado_guardar')->name('estado_guardar');
